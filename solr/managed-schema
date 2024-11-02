@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="default" version="1.6">
+    <uniqueKey>isbn</uniqueKey>
+    <uniqueKey>isbn13</uniqueKey>
+    <uniqueKey>id</uniqueKey>
+
+    <fieldType name="binary" class="solr.BinaryField"/>
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+    <fieldType name="booleans" class="solr.BoolField" sortMissingLast="true" multiValued="true"/>
+    <fieldType name="ignored" class="solr.StrField" indexed="false" stored="false" multiValued="true"/>
+    <fieldType name="pdate" class="solr.DatePointField" docValues="true"/>
+    <fieldType name="pdates" class="solr.DatePointField" docValues="true" multiValued="true"/>
+    <fieldType name="pdouble" class="solr.DoublePointField" docValues="true"/>
+    <fieldType name="pdoubles" class="solr.DoublePointField" docValues="true" multiValued="true"/>
+    <fieldType name="pfloat" class="solr.FloatPointField" docValues="true"/>
+    <fieldType name="pfloats" class="solr.FloatPointField" docValues="true" multiValued="true"/>
+    <fieldType name="pint" class="solr.IntPointField" docValues="true"/>
+    <fieldType name="pints" class="solr.IntPointField" docValues="true" multiValued="true"/>
+    <fieldType name="plong" class="solr.LongPointField" docValues="true"/>
+    <fieldType name="plongs" class="solr.LongPointField" docValues="true" multiValued="true"/>
+    <fieldType name="point" class="solr.PointType" subFieldSuffix="_d" dimension="2"/>
+    <fieldType name="random" class="solr.RandomSortField" indexed="true"/>
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
+    <fieldType name="strings" class="solr.StrField" sortMissingLast="true" multiValued="true"/>
+
+    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+            <filter class="solr.SynonymGraphFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+    </fieldType>
+    <fieldType name="texto_es" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false" />
+            <filter class="solr.SnowballPorterFilterFactory" language="Spanish"/>
+            <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="20"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false" />
+            <filter class="solr.SnowballPorterFilterFactory" language="Spanish"/>
+        </analyzer>
+    </fieldType>
+
+    <fieldType name="idioma" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+        <analyzer>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false" />
+            <filter class="solr.SynonymGraphFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
+        </analyzer>
+    </fieldType>
+
+    <fieldType name="string_es" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+        <analyzer>
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false" />
+        </analyzer>
+    </fieldType>
+
+    <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
+    <field name="_version_" type="plong" indexed="true" stored="true"/>
+    <field name="isbn" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="isbn13" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+    <field name="title" type="texto_es" indexed="true" stored="true" required="true" multiValued="false"/>
+    <field name="authors" type="texto_es" indexed="true" stored="true" required="false" multiValued="true"/>
+    <field name="publisher" type="texto_es" indexed="true" stored="true" required="false" multiValued="false"/>
+    <field name="genres" type="string_es" indexed="true" stored="true" required="false" multiValued="true"/>
+    <field name="language" type="idioma" indexed="true" stored="true" required="false" multiValued="true"/>
+    <field name="polarity" type="pint" indexed="true" stored="true" required="false" multiValued="false"/>
+
+</schema>

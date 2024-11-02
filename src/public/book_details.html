@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <link href="css/materialize.min.css" rel="stylesheet">
+        <link href="css/footer.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+
+        <style>
+            .tabs .indicator{
+                background-color: green;
+            }
+
+            #responsive { display: none; }
+
+            @media only screen and (max-width: 768px) {
+                #normal { display: none; }
+                #responsive { display: block; }
+            }
+        </style>
+
+        <title>Detalles Libro</title>
+    </head>
+
+    <body>
+
+        <div id="base"></div>
+
+        <!-- scripts --> 
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/materialize.min.js"></script>
+        <script src="detalles_libro.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('.sidenav').sidenav();
+
+                $('.tabs').tabs();
+
+                $('.tooltipped').tooltip({delay: 50});
+            });</script>
+    </body>
+</html>

@@ -1,0 +1,6 @@
+#footer_responsive { display: none; }
+
+@media only screen and (max-width: 768px) {
+    #footer_normal { display: none; }
+    #footer_responsive { display: block; }
+}
